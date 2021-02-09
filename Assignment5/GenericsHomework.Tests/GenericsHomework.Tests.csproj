@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-	<EnableNETAnalyzers>true</EnableNETAnalyzers>
-	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-	<LangVersion>9.0</LangVersion>
+	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	  <LangVersion>9.0</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GenericsHomework\NodeList.csproj" />
+    <ProjectReference Include="..\GenericsHomework\GenericsHomework.csproj" />
   </ItemGroup>
 
 </Project>
