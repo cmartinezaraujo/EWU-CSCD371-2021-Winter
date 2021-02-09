@@ -1,8 +1,7 @@
 using System;
-using GenericsHomework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Node.Tests
+namespace GenericsHomework.NodeList.Tests
 {
     [TestClass]
     public class NodeTests
@@ -42,7 +41,7 @@ namespace Node.Tests
 
         [TestMethod]
 
-        public void NodeNextPropertySetsNewNodesNextToItself()
+        public void Verify_NextPropertyOnConstructedNode()
         {
             Node<int> node = new Node<int>(25);
 
@@ -52,7 +51,7 @@ namespace Node.Tests
         }
 
         [TestMethod]
-        public void NodeNextPropertySetsNewNodesNextToItselfFalse()
+        public void Verify_NextPropertyChecksReference()
         {
             Node<int> node = new Node<int>(25);
 
@@ -73,6 +72,23 @@ namespace Node.Tests
             Assert.AreEqual<string>("StringTwo", node.Next.ToString());
             Assert.AreEqual<string>("StringOne", node.Next.Next.ToString());
 
+        }
+
+        [TestMethod]
+
+        public void CallingClearOnCurrentNodeClearsAllOtherNodes()
+        {
+            Node<string> node = new Node<string>("One");
+
+            node.Insert("Two");
+            node.Insert("Three");
+            node.Insert("Four");
+            node.Insert("Five");
+
+            node.clear();
+
+            Assert.AreEqual<string>("One", node.Value);
+            Assert.AreEqual<string>("One", node.Next.Value);
         }
     }
 }
