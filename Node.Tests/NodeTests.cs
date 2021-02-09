@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GenericsHomework.NodeList.Tests
+namespace GenericsHomework.Tests
 {
     [TestClass]
     public class NodeTests
@@ -85,7 +85,7 @@ namespace GenericsHomework.NodeList.Tests
             node.Insert("Four");
             node.Insert("Five");
 
-            node.clear();
+            node.Clear();
 
             Assert.AreEqual<string>("One", node.Value);
             Assert.AreEqual<string>("One", node.Next.Value);
