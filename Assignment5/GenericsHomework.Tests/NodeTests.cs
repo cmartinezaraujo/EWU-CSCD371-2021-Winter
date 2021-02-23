@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GenericsHomework.Tests
@@ -90,5 +92,52 @@ namespace GenericsHomework.Tests
             Assert.AreEqual<string>("One", node.Value);
             Assert.AreEqual<string>("One", node.Next.Value);
         }
+
+        [TestMethod]
+        public void GetEnumerator_ReturnsWorkingEnumerator()
+        {
+            Node<string> node = new Node<string>("One");
+
+            node.Insert("Two");
+            node.Insert("Three");
+            node.Insert("Four");
+            node.Insert("Five");
+
+            int count = 0;
+
+            foreach(string data in node)
+            {
+                count++;
+            }
+
+            Assert.AreEqual<int>(count, 5);
+        }
+
+        [TestMethod]
+        public void childItems_ReturnsOnlyThreeChildrenEnumerable()
+        {
+            Node<string> node = new Node<string>("Six");
+
+            node.Insert("Five");
+            node.Insert("Four");
+            node.Insert("Three");
+            node.Insert("Two");
+            node.Insert("One");
+
+            List<string> numbers = new List<string>();
+
+            foreach(string number in node.childItems(3))
+            {
+                numbers.Add(number);
+            }
+
+            Assert.IsTrue(numbers.Contains("One"));
+            Assert.IsTrue(numbers.Contains("Two"));
+            Assert.IsTrue(numbers.Contains("Three"));
+            Assert.AreEqual<int>(3, numbers.Count());
+
+        }
+
+
     }
 }
