@@ -27,11 +27,8 @@ namespace Assignment.Tests
 
         public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted_HardCodedTest()
         {
-            //SampleData data = new SampleData() {  CsvRows = "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577" }
+            //SampleData data = new SampleData() {  CsvRows = "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Spokane,WA,99201" }
 
-            //IEnumerable<string> dat = data.GetUniqueSortedListOfStatesGivenCsvRows();
-
-            //Assert.AreEqual<int>(50, dat.Count());
         }
 
         [TestMethod]   
