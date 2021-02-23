@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace GenericsHomework
 {
-    public class Node<T>
+    public class Node<T> : IEnumerable<T>
     {
         private T? _Value;
         private Node<T>? _Next;
@@ -14,7 +16,7 @@ namespace GenericsHomework
             get => _Next!;
             set
             {
-                value._Next = this;
+                value._Next = this.Next;
                 _Next = value ?? throw new ArgumentNullException(nameof(value));
             }
         }
@@ -49,6 +51,37 @@ namespace GenericsHomework
             detect the other nodes as unreachable references and eventually
             collect them. Keeping the loop open also does not effect the list 
             when then inserting or deleting nodes later on*/
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            
+
+            Node<T> current = this;
+
+            do
+            {
+                yield return current.Value;
+                current = current.Next;
+            } while (current != this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public IEnumerable<T> childItems(int max)
+        {
+            Node<T> current = this.Next;
+            int counter = 0;
+
+            while (current != this && counter < max)
+            {
+                yield return current.Value;
+                current = current.Next;
+                counter++;
+            }
         }
     }
 }
