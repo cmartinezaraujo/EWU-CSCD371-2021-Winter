@@ -23,13 +23,6 @@ namespace Assignment.Tests
             Assert.AreEqual<int>(recordsExpected, records.Count());
         }
 
-        [TestMethod]
-
-        public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted_HardCodedTest()
-        {
-            //SampleData data = new SampleData() {  CsvRows = "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Spokane,WA,99201" }
-
-        }
 
         [TestMethod]   
 
@@ -54,6 +47,8 @@ namespace Assignment.Tests
             IEnumerable<string> states = data.GetUniqueSortedListOfStatesGivenCsvRows();
 
             List<String> temp = new List<string>();
+
+            //List is constructed to add each state we encounter but if we have added it before then the results are not unique
 
             foreach(string state in states)
             {
@@ -82,7 +77,7 @@ namespace Assignment.Tests
 
         [TestMethod]
 
-        public void TestPeople()
+        public void PeopleProperty_ReturnsCorrectPeople()
         {
             SampleData data = new SampleData();
 
@@ -90,6 +85,8 @@ namespace Assignment.Tests
             ThenBy(record => record = record.Split(",")[5]).ThenBy(record => record = record.Split(",")[7]);
 
             IEnumerable<IPerson> people = data.People;
+
+            //Two strings constructed with all information to check that all records from people are returned in the correct order
 
             string expected = "";
             foreach(string record in records)
@@ -111,7 +108,7 @@ namespace Assignment.Tests
 
         [TestMethod]
 
-        public void TestFilter()
+        public void EmailFilter_ReturnsEmailsContaining_edu()
         {
             Predicate<string> filter = email => email.Contains("edu");
 
@@ -129,7 +126,7 @@ namespace Assignment.Tests
 
         [TestMethod]
 
-        public void peopleString()
+        public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsStatesFromPeople()
         {
             SampleData data = new SampleData();
 

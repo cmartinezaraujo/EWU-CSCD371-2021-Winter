@@ -126,6 +126,8 @@ namespace GenericsHomework.Tests
 
             List<string> numbers = new List<string>();
 
+            //Adding all data from the returned enumerator to check that returned nodes are correct as well as the count
+
             foreach(string number in node.childItems(3))
             {
                 numbers.Add(number);
