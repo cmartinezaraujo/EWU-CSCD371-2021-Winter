@@ -18,18 +18,25 @@ namespace Assignment7
             return await Task.Run(() => urls.Aggregate(0, (total, next) => total + client.DownloadString(next).Length));
         }
 
-        public static async Task<int> DownloadTextRepeatedlyAsynch(IProgress<int> progress, CancellationToken cancellationToken, int repetitions, params string[] urls)
+        public static async Task<int> DownloadTextRepeatedlyAsynch(IProgress<int> progress, ParallelOptions parallelOptions, int repetitions, params string[] urls)
         {
+            object sync = new Object();
 
-            return await Task.Run(async () =>
+            return await Task.Run(() =>
             {
-                //int progress = 0;
+                int current = 0;
                 int total = 0;
-                for (int i = 0; i < repetitions && !(cancellationToken.IsCancellationRequested); i++)
+
+                Parallel.For(0, repetitions, parallelOptions, index =>
                 {
-                    total += await DownloadTextAsync(urls);
-                    progress.Report((i*100) / repetitions);
-                }
+                    parallelOptions.CancellationToken.ThrowIfCancellationRequested();
+                    lock (sync)
+                    {
+                        total += DownloadTextAsync(urls).Result;
+                    }
+                    current++;
+                    progress.Report((current * 100) / repetitions);
+                });
                 return total;
             });
         }
