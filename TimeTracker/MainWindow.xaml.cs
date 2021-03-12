@@ -13,11 +13,11 @@ namespace TimeTracker
 
     public partial class MainWindow : Window
     {
-        private DateTime startTime;
-        private DateTime endTime;
-        private TimeSpan timeDifference;
-        private bool isReset;
-        private string timerDescription;
+        private DateTime _StartTime;
+        private DateTime _EndTime;
+        private TimeSpan _TimeDifference;
+        private bool _IsReset;
+        private string _TimerDescription;
 
         private DispatcherTimer DispatcherTimer { get; }
         public MainWindow()
@@ -32,7 +32,7 @@ namespace TimeTracker
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             
-                TimerTextBlock.Text = Convert.ToString(DateTime.Now.Subtract(startTime));
+                TimerTextBlock.Text = Convert.ToString(DateTime.Now.Subtract(_StartTime));
  
         }
 
@@ -41,14 +41,14 @@ namespace TimeTracker
             if(!DispatcherTimer.IsEnabled)
             {
                 DispatcherTimer.Start();
-                if (isReset)
+                if (_IsReset)
                 {
-                    startTime = DateTime.Now;
-                    isReset = false;
+                    _StartTime = DateTime.Now;
+                    _IsReset = false;
                 }
                 else
                 {
-                    startTime =  DateTime.Now.Add(timeDifference);
+                    _StartTime =  DateTime.Now.Add(_TimeDifference);
                 }
             }
         }
@@ -57,36 +57,36 @@ namespace TimeTracker
         {
             if (DispatcherTimer.IsEnabled)
             {
-                endTime = DateTime.Now;
-                timeDifference = TimeSpan.FromTicks(startTime.Ticks) - TimeSpan.FromTicks(endTime.Ticks);
+                _EndTime = DateTime.Now;
+                _TimeDifference = TimeSpan.FromTicks(_StartTime.Ticks) - TimeSpan.FromTicks(_EndTime.Ticks);
                 DispatcherTimer.Stop();
             }
         }
 
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            timerDescription = TimerDescriptionTextBox.Text;
+            _TimerDescription = TimerDescriptionTextBox.Text;
         }
 
         private void LogTimer_Click(object sender, RoutedEventArgs e)
         {
             if(DispatcherTimer.IsEnabled)
             {
-                PastTimersLog.Items.Add($"{timerDescription} {Convert.ToString(DateTime.Now - startTime)}");
+                PastTimersLog.Items.Add($"{_TimerDescription} {Convert.ToString(DateTime.Now - _StartTime)}");
             }
             else
             {
                 DateTime current = DateTime.Now;
-                PastTimersLog.Items.Add($"{timerDescription} { Convert.ToString(current - current.Add(timeDifference) )}");
+                PastTimersLog.Items.Add($"{_TimerDescription} { Convert.ToString(current - current.Add(_TimeDifference) )}");
             }
         }
 
         private void TimerReset_Click(object sender, RoutedEventArgs e)
         {
             DispatcherTimer.Stop();
-            timeDifference = TimeSpan.FromTicks(startTime.Ticks) - TimeSpan.FromTicks(startTime.Ticks);
+            _TimeDifference = TimeSpan.FromTicks(_StartTime.Ticks) - TimeSpan.FromTicks(_StartTime.Ticks);
             TimerTextBlock.Text = "00:00:00:00";
-            isReset = true;
+            _IsReset = true;
 
         }
 
