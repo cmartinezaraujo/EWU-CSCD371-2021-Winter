@@ -1,0 +1,128 @@
+﻿<Window x:Class="ContactApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ContactApp"
+        d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBoolConverter"/>
+        <local:EmptyStringToVisibilityConverter x:Key="EmptyStringConverter"/>
+
+        <DataTemplate x:Key="EditContactDetailsTemplate" DataType="{x:Type local:ContactViewModel}">
+            <StackPanel>
+                <TextBlock Text="First Name" />
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Last Name" />
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Phone Number" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Email Address" />
+                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Twitter Handle" />
+                <TextBox Text="{Binding TwitterHandle, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StaticContactDetailsTemplate" DataType="{x:Type local:ContactViewModel}">
+            <StackPanel>
+                <TextBlock Text="First Name" FontWeight="Bold" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding FirstName}" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="Last Name" FontWeight="Bold" FontSize="20" Visibility="{Binding LastName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding LastName}" FontSize="20" Visibility="{Binding LastName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="Phone Number" FontWeight="Bold" FontSize="20" Visibility="{Binding PhoneNumber, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding PhoneNumber}" FontSize="20" Visibility="{Binding PhoneNumber, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="Email Address" FontWeight="Bold" FontSize="20" Visibility="{Binding EmailAddress, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding EmailAddress}" FontSize="20" Visibility="{Binding EmailAddress, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="Twitter Handle" FontWeight="Bold"  FontSize="20" Visibility="{Binding TwitterHandle, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding TwitterHandle}" FontSize="20" Visibility="{Binding TwitterHandle, Converter={StaticResource EmptyStringConverter}}"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ContactListTemplate" DataType="{x:Type local:ContactViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+
+                <TextBlock  Grid.Column="1">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="FirstName"/>
+                            <Binding Path="LastName"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+
+                </TextBlock>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Menu Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+                <MenuItem Header="Contact">
+                    <MenuItem Header="New Contact" Command="{Binding NewContactCommand}"/>
+                    <MenuItem Header="Edit Contact" Command="{Binding EditContactCommand}"/>
+                </MenuItem>
+            </Menu>
+
+
+
+            <ListBox ItemsSource="{Binding Contacts}" 
+                     FontSize="20"
+                     SelectedItem="{Binding SelectedContact}"
+                     ItemTemplate="{StaticResource ContactListTemplate}"
+                     Grid.Row="1">
+            </ListBox>
+
+            <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding IsBeingEdited, Converter={StaticResource BoolConverter}}">
+                <ContentControl Content="{Binding SelectedContact}" 
+                                ContentTemplate="{StaticResource EditContactDetailsTemplate}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedContact}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <Button Content="Save" VerticalAlignment="Bottom" Command="{Binding SaveContactCommand}">
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding IsBeingEdited, Converter={StaticResource InverseBoolConverter}}" >
+                <ContentControl Content="{Binding SelectedContact}" 
+                                ContentTemplate="{StaticResource StaticContactDetailsTemplate}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedContact}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <Button Content="Delete Contact" VerticalAlignment="Bottom" Command="{Binding DeleteContactCommand}">
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
