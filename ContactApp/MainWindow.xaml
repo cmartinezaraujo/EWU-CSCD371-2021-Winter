@@ -29,6 +29,7 @@
 
         <DataTemplate x:Key="StaticContactDetailsTemplate" DataType="{x:Type local:ContactViewModel}">
             <StackPanel>
+                <TextBlock Text="{Binding LastModified}" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
                 <TextBlock Text="First Name" FontWeight="Bold" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
                 <TextBlock Text="{Binding FirstName}" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
                 <TextBlock Text="Last Name" FontWeight="Bold" FontSize="20" Visibility="{Binding LastName, Converter={StaticResource EmptyStringConverter}}"/>

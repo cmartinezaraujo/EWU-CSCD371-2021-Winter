@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -49,7 +50,8 @@ namespace ContactApp
                 LastName = "Martinez",
                 PhoneNumber = "509-111-1111",
                 EmailAddress = "Goofy@gmail.com",
-                TwitterHandle = "@GoodBoy"
+                TwitterHandle = "@GoodBoy",
+                LastModified = DateTime.Now
             });
 
             Contacts.Add(new()
@@ -58,14 +60,15 @@ namespace ContactApp
                 LastName = "Orozco",
                 PhoneNumber = "509-111-1111",
                 EmailAddress = "Mister@gmail.com",
-                TwitterHandle = "@Mistery"
+                TwitterHandle = "@Mistery",
+                LastModified = DateTime.Now
             });
 
         }
 
         private void OnNewContact()
         {
-            ContactViewModel NewContact = new ContactViewModel() { FirstName = "Jane", LastName = "Doe" };
+            ContactViewModel NewContact = new ContactViewModel() { FirstName = "Jane", LastName = "Doe", LastModified = DateTime.Now };
 
             Contacts.Add(NewContact);
 
@@ -82,6 +85,7 @@ namespace ContactApp
         private void SaveContact()
         {
             IsBeingEdited = false;
+            SelectedContact.LastModified = DateTime.Now;
         }
 
         public void DeleteContact()
