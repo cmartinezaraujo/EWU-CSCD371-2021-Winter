@@ -47,7 +47,7 @@ namespace ContactApp
             {
                 FirstName = "Goofy",
                 LastName = "Martinez",
-                PhoneNumber = "509-361-7840",
+                PhoneNumber = "509-111-1111",
                 EmailAddress = "Goofy@gmail.com",
                 TwitterHandle = "@GoodBoy"
             });
@@ -56,7 +56,7 @@ namespace ContactApp
             {
                 FirstName = "Mister",
                 LastName = "Orozco",
-                PhoneNumber = "509-361-7839",
+                PhoneNumber = "509-111-1111",
                 EmailAddress = "Mister@gmail.com",
                 TwitterHandle = "@Mistery"
             });
