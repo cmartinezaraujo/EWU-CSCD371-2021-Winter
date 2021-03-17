@@ -1,5 +1,5 @@
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace ContactApp.Tests
 {
@@ -14,5 +14,4 @@ namespace ContactApp.Tests
         }
 
     }
-
 }

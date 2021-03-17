@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ContactApp.Tests
 {
     [TestClass]
 
     public class MainWindowViewModelTests
-    { 
+    {
         [TestMethod]
 
         public void OnNewContact_AddsNewContactToList()
@@ -20,5 +20,4 @@ namespace ContactApp.Tests
         }
 
     }
-
 }
