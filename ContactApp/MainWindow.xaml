@@ -31,15 +31,65 @@
             <StackPanel>
                 <TextBlock Text="{Binding LastModified}" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
                 <TextBlock Text="First Name" FontWeight="Bold" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
-                <TextBlock Text="{Binding FirstName}" FontSize="20" Visibility="{Binding FirstName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding FirstName}" FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBlock Text="Last Name" FontWeight="Bold" FontSize="20" Visibility="{Binding LastName, Converter={StaticResource EmptyStringConverter}}"/>
-                <TextBlock Text="{Binding LastName}" FontSize="20" Visibility="{Binding LastName, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding LastName}" FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBlock Text="Phone Number" FontWeight="Bold" FontSize="20" Visibility="{Binding PhoneNumber, Converter={StaticResource EmptyStringConverter}}"/>
-                <TextBlock Text="{Binding PhoneNumber}" FontSize="20" Visibility="{Binding PhoneNumber, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding PhoneNumber}" FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBlock Text="Email Address" FontWeight="Bold" FontSize="20" Visibility="{Binding EmailAddress, Converter={StaticResource EmptyStringConverter}}"/>
-                <TextBlock Text="{Binding EmailAddress}" FontSize="20" Visibility="{Binding EmailAddress, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding EmailAddress}" FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBlock Text="Twitter Handle" FontWeight="Bold"  FontSize="20" Visibility="{Binding TwitterHandle, Converter={StaticResource EmptyStringConverter}}"/>
-                <TextBlock Text="{Binding TwitterHandle}" FontSize="20" Visibility="{Binding TwitterHandle, Converter={StaticResource EmptyStringConverter}}"/>
+                <TextBlock Text="{Binding TwitterHandle}" FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </StackPanel>
         </DataTemplate>
         
