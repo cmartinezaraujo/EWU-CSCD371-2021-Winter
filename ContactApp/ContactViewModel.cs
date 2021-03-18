@@ -43,11 +43,11 @@ namespace ContactApp
             set => SetProperty(ref _TwitterHandle!, value!);
         }
 
-        private DateTime _LastModified;
+        private DateTime? _LastModified;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public DateTime LastModified
+        public DateTime? LastModified
         {
             get => _LastModified;
             set

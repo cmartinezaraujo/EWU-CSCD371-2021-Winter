@@ -124,15 +124,6 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Menu Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
-                <MenuItem Header="Contact">
-                    <MenuItem Header="New Contact" Command="{Binding NewContactCommand}"/>
-                    <MenuItem Header="Edit Contact" Command="{Binding EditContactCommand}"/>
-                </MenuItem>
-            </Menu>
-
-
-
             <ListBox ItemsSource="{Binding Contacts}" 
                      FontSize="20"
                      SelectedItem="{Binding SelectedContact}"
@@ -170,8 +161,11 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-                <Button Content="Delete Contact" VerticalAlignment="Bottom" Command="{Binding DeleteContactCommand}">
-                </Button>
+                <StackPanel  VerticalAlignment="Bottom">
+                    <Button Content="Add Contact" VerticalAlignment="Bottom" Command="{Binding NewContactCommand}"/>
+                    <Button Content="Edit Contact" VerticalAlignment="Bottom" Command="{Binding EditContactCommand}" Visibility="{Binding IsListEmpty, Converter={StaticResource InverseBoolConverter}}"/>
+                    <Button Content="Delete Contact" VerticalAlignment="Bottom" Command="{Binding DeleteContactCommand}" Visibility="{Binding IsListEmpty, Converter={StaticResource InverseBoolConverter}}"/>
+                </StackPanel>
             </Grid>
 
         </Grid>

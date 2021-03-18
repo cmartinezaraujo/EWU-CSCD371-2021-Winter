@@ -10,7 +10,7 @@ namespace ContactApp
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<ContactViewModel> Contacts { get; } = new();
         public RelayCommand NewContactCommand { get; }
@@ -21,7 +21,7 @@ namespace ContactApp
 
         public RelayCommand DeleteContactCommand { get; }
 
-        private ContactViewModel _SelectedContact;
+        private ContactViewModel? _SelectedContact;
 
         public ContactViewModel SelectedContact
         {
@@ -29,6 +29,13 @@ namespace ContactApp
             set => SetProperty(ref _SelectedContact, value);
         }
 
+        private bool _IsListEmpty;
+
+        public bool IsListEmpty
+        {
+            get => _IsListEmpty;
+            set => SetProperty(ref _IsListEmpty, value);
+        }
 
         private bool _IsBeingEdited;
         public bool IsBeingEdited 
@@ -42,7 +49,7 @@ namespace ContactApp
             NewContactCommand = new RelayCommand(OnNewContact, () => true);
             EditContactCommand = new RelayCommand(EditContact, () => true);
             SaveContactCommand = new RelayCommand(SaveContact, () => true);
-            DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact, () => !IsListEmpty);
 
             Contacts.Add(new()
             {
@@ -63,7 +70,8 @@ namespace ContactApp
                 TwitterHandle = "@Mistery",
                 LastModified = DateTime.Now
             });
-
+            SelectedContact = Contacts.First();
+            IsListEmpty = false;
         }
 
         private void OnNewContact()
@@ -75,6 +83,8 @@ namespace ContactApp
             SelectedContact = NewContact;
 
             IsBeingEdited = true;
+
+            IsListEmpty = false;
         }
 
         private void EditContact()
@@ -88,24 +98,20 @@ namespace ContactApp
             SelectedContact.LastModified = DateTime.Now;
         }
 
-        public void DeleteContact()
+        private void DeleteContact()
         {
             Contacts.Remove(SelectedContact);
 
-            if(Contacts.Count > 0)
+            if(Contacts.Count == 0)
+            {
+                IsListEmpty = true;
+            }
+
+            if(!IsListEmpty)
             {
                 SelectedContact = Contacts.First();
             }
-        }
-
-        public bool CanDeleteContact()
-        {
-            if(Contacts.Count > 0)
-            {
-                return true;
-            }
-
-            return false;
+        
         }
 
         private bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "")
