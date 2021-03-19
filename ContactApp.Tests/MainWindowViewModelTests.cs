@@ -79,8 +79,37 @@ namespace ContactApp.Tests
 
             viewModel.SaveContactCommand.Execute(null);
 
-            Assert.AreNotEqual<DateTime>(originalDate, viewModel.SelectedContact.LastModified);
+            Assert.AreNotEqual<DateTime>(originalDate, (DateTime)viewModel.SelectedContact.LastModified);
         }
 
+        [TestMethod]
+
+        public void IsListEmpty_UpdatesToTrueWhenAllContactsDeleted()
+        {
+            var viewModel = new MainWindowViewModel();
+
+            viewModel.SelectedContact = viewModel.Contacts.First();
+            viewModel.DeleteContactCommand.Execute(null);
+            viewModel.DeleteContactCommand.Execute(null);
+
+            Assert.IsTrue(viewModel.IsListEmpty);
+            Assert.AreEqual<int>(0, viewModel.Contacts.Count);
+        }
+
+        [TestMethod]
+        public void IsListEmpty_UpdatesToFalseWhenContactsAreAdded()
+        {
+            var viewModel = new MainWindowViewModel();
+
+            viewModel.SelectedContact = viewModel.Contacts.First();
+            viewModel.DeleteContactCommand.Execute(null);
+            viewModel.DeleteContactCommand.Execute(null);
+            //List is emptied here 
+            Assert.IsTrue(viewModel.IsListEmpty);
+
+            viewModel.NewContactCommand.Execute(null); //List is now populated
+
+            Assert.IsFalse(viewModel.IsListEmpty);
+        }
     }
 }
