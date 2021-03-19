@@ -7,6 +7,7 @@ namespace ContactApp
 {
     public class ContactViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         private string? _FirstName;
         public string? FirstName 
@@ -44,8 +45,6 @@ namespace ContactApp
         }
 
         private DateTime? _LastModified;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         public DateTime? LastModified
         {
