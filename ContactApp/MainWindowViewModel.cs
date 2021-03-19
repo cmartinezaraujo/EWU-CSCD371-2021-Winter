@@ -23,7 +23,7 @@ namespace ContactApp
 
         private ContactViewModel? _SelectedContact;
 
-        public ContactViewModel SelectedContact
+        public ContactViewModel? SelectedContact
         {
             get => _SelectedContact;
             set => SetProperty(ref _SelectedContact, value);
@@ -95,12 +95,12 @@ namespace ContactApp
         private void SaveContact()
         {
             IsBeingEdited = false;
-            SelectedContact.LastModified = DateTime.Now;
+            SelectedContact!.LastModified = DateTime.Now;
         }
 
         private void DeleteContact()
         {
-            Contacts.Remove(SelectedContact);
+            Contacts.Remove(SelectedContact!);
 
             if(Contacts.Count == 0)
             {

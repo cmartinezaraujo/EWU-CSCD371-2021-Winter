@@ -10,10 +10,10 @@ namespace ContactApp
 
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object parameter) => CanExecuteDelegate.Invoke();
-        public void Execute(object parameter) => ExecuteDelegate.Invoke();
+        public bool CanExecute(object? parameter) => CanExecuteDelegate.Invoke();
+        public void Execute(object? parameter) => ExecuteDelegate.Invoke();
         public RelayCommand(Action executeDelegate, Func<bool> canExecuteDelegate)
         {
             ExecuteDelegate = executeDelegate ?? throw new ArgumentNullException(nameof(executeDelegate));
